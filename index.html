@@ -65,7 +65,7 @@
                         <p class="card-text flex-grow-1">Descrição curta do produto ou item do catalogo.</p>
                     </div>
                     <div class="card-footer bg-light border-top-0 d-grid">
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal">
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal" data-item-id="1">
                             <i class="bi bi-search"></i> Ver detalhes
                         </button>
                     </div>
@@ -82,7 +82,7 @@
                         <p class="card-text flex-grow-1">Um item feito a mão com detalhes especiais e muito carinho.</p>
                     </div>
                     <div class="card-footer bg-light border-top-0 d-grid">
-                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal">
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal" data-item-id="2">
                             <i class="bi bi-search"></i> Ver detalhes
                         </button>
                     </div>
@@ -99,7 +99,7 @@
                         <p class="card-text flex-grow-1">Terceiro item de destaque.</p>
                     </div>
                     <div class="card-footer bg-light border-top-0 d-grid">
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal" data-item-id="3">
                             <i class="bi bi-search"></i> Ver detalhes
                         </button>
                     </div>
@@ -116,7 +116,7 @@
                         <p class="card-text flex-grow-1">Quarto item de destaque.</p>
                     </div>
                     <div class="card-footer bg-light border-top-0 d-grid">
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#detalheModal" data-item-id="4">
                             <i class="bi bi-search"></i> Ver detalhes
                         </button>
                     </div>
@@ -125,5 +125,28 @@
             
         </div> <!-- .row -->
     </div> <!-- .container -->
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2025 Catalogo do Ensino Medio. Desenvolvido com bootstrap 5.</p>
+    </footer>
+
+    <div class="modal fade" id="detalheModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title">Detalhes do item</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-success"><i class="bi bi-cart-plus"></i> Adicionar á Lista</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 </body>
 </html>
