@@ -43,8 +43,8 @@
                     </li>
                 </ul>
                 <form class="d-flex form-inline my-2 my-lg-0 ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Buscar item" aria-label="Buscar">
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+                    <input id="searc-input" class="form-control me-2" type="search" placeholder="Buscar item" aria-label="Buscar">
+                    <button id="search-button" class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
@@ -125,28 +125,28 @@
             
         </div> <!-- .row -->
     </div> <!-- .container -->
-
+    
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy; 2025 Catalogo do Ensino Medio. Desenvolvido com bootstrap 5.</p>
     </footer>
-
+    
     <div class="modal fade" id="detalheModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-              <h5 class="modal-title">Detalhes do item</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalhes do item</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success"><i class="bi bi-cart-plus"></i> Adicionar á Lista</button>
+                </div>
             </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-success"><i class="bi bi-cart-plus"></i> Adicionar á Lista</button>
-            </div>
-          </div>
         </div>
-      </div>
-
+    </div>
+    
 </body>
 </html>
