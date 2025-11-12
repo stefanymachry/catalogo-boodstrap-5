@@ -95,12 +95,29 @@ modalElement.addEventListener('show.bs.modal', function (event) {
 });
 
 // 2. ouvinte para afuncionalidade de busca (simples)
-const searchInput = document.getElementById('serch-input');
+const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
-const items = document.querySelectorAll('item-catalogo'); 
+const items = document.querySelectorAll('.item-catalogo'); 
 
 function executarPesquisa(event) {
+// Previne o envio do formulario para o servidor (back-end)
+event.preventDefault();
+// Obtem o valor do campo de busca de letras minusculas (.tolowerCase())
+const query = searchInput.value.toLowerCase().trim();
 
+// Para cada item do catalogo (quatro itens)
+items.forEach(item => {
+    // obtem o titulo e o nome da categoria do item atual em letras minusculas
+    const title = item.querySelector('.card-title').textContent.toLowerCase();
+    const category = item.getAttribute('data-categoria').toLowerCase();
+
+    // verifica se o titulo ou a categoria do item atual incluem o valor digitado no campo de busca (query)
+    // se o valor do campo de busca (query === "") for em branco, exibe todos os tens
+    if (title.includes(query) || category.includes(query) || query === "") {
+    } else {
+        item.style.display = 'none'; // Esconde o item
+    }
+});
 }
 
 // Adiciona evento ao clicar no botão "buscar"
@@ -110,8 +127,35 @@ searchInput.addEventListener('keyup', (event) => {
     // Permite buscar ao pressionar Enter
     if (event.key === 'Enter') {
         executarPesquisa(event);
-    } else if (searchInput.ariaValueMax.trim() === "") {
+    } else if (searchInput.value.trim() === "") {
         // Mostra todos os itens se a busca for apagada
         executarPesquisa(event);
     }
+});
+
+// 3. atualiza os itens do catalogo ao carregar o HTML da pagina 
+// para cada cartao da pagina
+items.forEach((card, index) => {
+    const img = card.querySelector('img');
+    const title = card.querySelector('.card-title');
+    const category = card.querySelectorAll('.card-text')[0];
+    const description = card.querySelectorAll('.card-text')[1];
+
+    // o 'index' começa a partir do '0' (zero),
+    // enquanto o catalogo de itens (CATALOG_ITEMS) começa a partir de '1' (um)
+    // portanto, somamos '1' (um) ao 'index' para que a numeraçao do indice corresponda 
+    // a numeraçao do catalogo de itens
+    const item = CATALOG_ITEMS.find(i => i.id === (index + 1));
+    
+    if (item) {
+        // atualiza o texto da imagem do cartao com a categoria do item
+        img.src = img.src.replace(/\?text=(.*)/, "?text=" + item.categoria.toUpperCase());
+        //  atualiza o texto do titulo do cartao
+        title.textContent = item.titulo;
+        // atualiza a categoria do item
+        category.textContent = "Categoria: " + item.categoria;
+        //  atualiza a descriçao do item
+        description.textContent = item.detalhes;
+    }
+
 })
