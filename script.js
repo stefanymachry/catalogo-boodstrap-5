@@ -85,9 +85,10 @@ modalElement.addEventListener('show.bs.modal', function (event) {
         
         // Ao clicar no botão "adicionar ao carrinho"
         modalAction.onclick = () => {
+           // Em uma aplicação real, você faria uma chamada de API aqui. 
+             // Para este exemplo, apenas adicionamos o item ao carrinho, mostramos o log e fechamos o modal
+             adicionarItemCarrinho(item.id);
             console.log(`Ação: Item '${item.titulo}'' (ID: ${item.id}) adicionado ao carrinho.`);
-            // Em uma aplicação real, você faria uma chamada de API aqui.
-            // Para este exemplo, apenas fechamos o modal e fechamos o log.
             const bsModal = bootstrap.Modal.getInstance(modalElement);
             if(bsModal) bsModal.hide(); 
         }
@@ -162,24 +163,24 @@ items.forEach((card, index) => {
 
 // 4. Adiciona funcionalidade de kookies (persitencia) dos itens adicionados ao carrinho
 // (mantem os produtos adicionados ao carrinho mesmo se fechar ou atualizar a pagina)
-const CART_STORAGE_KEY = 'shooping_cart';
+const CART_STORAGE_KEY = 'shopping_cart';
 
 function obterCarrinhoDoNavegador() {
     // Tenta ler o kookie do navegador
     try {
-        const kookie = localStorage.getItem(CART_STORAGE_KEY);
-        if (kookie) {
+        const cookie = localStorage.getItem(CART_STORAGE_KEY);
+        if (cookie) {
             // Se o kookie existir, retorna o kookie
-            return JSON.parse(kookie);
+            return JSON.parse(cookie);
         }
     } catch (e) {
-        console.error("Falha ao ler o kookie do armazenamento local.")
+        console.error("Falha ao ler o cookie do armazenamento local.")
     }
     // Retorna um vetor vazio em caso de falha
     return [];
 }
 
-function salvarKookieCarrinho(itensCarrinho) {
+function salvarCookieCarrinho(itensCarrinho) {
     try {
         // Salva os items do carrinho em formato JSON no navegador
         // Ex: ao adicionar o item com ID '2' e '3' ao carrinho, CART_STORAGE_KEY = {2,3}
@@ -191,10 +192,63 @@ function salvarKookieCarrinho(itensCarrinho) {
     }
 }
 
+function atualizarContadorCarrinho() {
+    // Obtem os itens existentes no carrinho
+    const carrinho = obterCarrinhoDoNavegador();
+    // Obtem o elemento HTML que exibe o numero de itens no carrinho (bedge)
+    const carrinhoBadge = document.getElementById("cart-count");
+    
+    // Se o elemento que exibe o numero de itens no carrinho (bedge) existe
+    if (carrinhoBadge) {
+        // Atualiza o bedge do carrinho com o numero de itens no carrinho
+        carrinhoBadge.textContent = carrinho.length;
+        
+        if (carrinho.length > 0) {
+            // Remove o class bootstrap 'd-none' (CSS: 'display: none;') para exebir o bedge
+            carrinhoBadge.classList.remove('d-none');
+        } else {
+            // Adiciona a class bootstrap 'd-none' (CSS: 'display: none;') para ocultar o bedge
+            carrinhoBadge.classList.add('d-none');
+        }
+    }
+}
+
 function adicionarItemCarrinho(itemId) {
     // Obtem os itens atuais do carrinho
-    const carrinho = obtemCarrinhoDoNavegador();
+    const carrinho = obterCarrinhoDoNavegador();
     carrinho.push(itemId) // Adiciona o Id do item recebido como parametro da funçao ao carrinho
-    salvarKookieCarrinho(); // Atualiza o kookie do carrinho
-    atualizarContaorCarrinho(); // Atualiza o numero de item do HTML do carrinho do nvbar
+    salvarCookieCarrinho(carrinho); // Atualiza o kookie do carrinho
+    atualizarContadorCarrinho(); // Atualiza o numero de item do HTML do carrinho do nvbar
 }
+
+// Carrega o numero de itens no carrinho ao carregar a pagina HTML
+atualizarContadorCarrinho();
+
+// 5. Renderiza o conteudo do carrinho
+const carrinho_btn = document.getElementById("cart-button");
+
+// Ao clicar no botao do carrinho 
+carrinho_btn.addEventListener("click", function() {
+    // Exibe a seçao de "meu carrinho de compras" se ela estiver invisivel (remove a classe "d-none")
+    // Oculta a seçao de "meu carrinho de compras" se ela nao estiver visivel (adiciona a classe "d-none")
+    const carrinho_secao = document.getElementById("cart-section");
+    carrinho_secao.classList.toggle("d-none");
+
+    // Se a seçao do carrinho possui a classe "d-none" (ou seja, o carrinho nao esta visivel)
+    if (carrinho_secao.classList.contains("d-none")) {
+        return; // Para de processar a funçao de renderizar o rercibo se a seçao "meu carrinho de compras" nao esta visivel
+    }
+
+    const carrinho_recibo = document.getElementById("cart-list");
+    carrinho_recibo.innerHTML = ""; // Limpa a lista de itens do recibo atual
+
+    const itensCarrinho = obterCarrinhoDoNavegador(); // Le os cookies do navegador
+    // Para cada itens do carrinho
+    itensCarrinho.forEach(itemCarrinho => {
+        // Adiciona o item do carrinho ao recibo
+        const li = document.createElement("li");
+        li.innerHTML = itemCarrinho;
+
+        carrinho_recibo.appendChild(li);
+    });
+});

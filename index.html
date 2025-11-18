@@ -20,7 +20,7 @@
             </button>
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link active" href="#">Inicio</span></a>
                     </li>
@@ -42,10 +42,23 @@
                         <a class="nav-link disabled" aria-disabled="true" href="#">Desabilitado</a>
                     </li>
                 </ul>
-                <form class="d-flex form-inline my-2 my-lg-0 ms-auto">
-                    <input id="search-input" class="form-control me-2" type="search" placeholder="Buscar item" aria-label="Buscar">
-                    <button id="search-button" class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
+                <!-- carrinho e buscar -->
+                <div class="d-flex aling-items-center">
+                    <!-- botao do carrinho com contador (bedge) -->
+                    <!-- o botao tem position-relative, o bedge tem position-absolute top-0 start-100 translate-middle -->
+                    <button class="btn btn-outline-light me-4 position-relative" id="cart-button" title="ver carrinho">
+                        <i class="bi bi-cart4 fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="cart-count">
+                            0
+                            <span class="visually-hidden">itens no carrinho</span>
+                        </span>
+                    </button>
+                    <!-- furmulario de busca -->
+                    <form class="d-flex" role="search">
+                        <input id="search-input" class="form-control me-2" type="search" placeholder="Buscar item" aria-label="Buscar">
+                        <button id="search-button" class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -124,6 +137,16 @@
             </div> <!-- Item 4 -->
             
         </div> <!-- .row -->
+
+        <div class="row" id="cart-section">
+            <h1 class="bm-4 text-center"><i class="bi bi-cart4"></i> Meu carrinho de compras</h1>
+            <ul class="list-group mb-4 shadow-sm" id="cart-list">
+            </ul>
+            <div class="d-flex justify-content-between aling-items-center p-3 bg-light rounded-t-3 shadow-sm">
+                <h5 class="mb-0">Total de compras:</h5>
+                <h3 class="bm-0 text-primary fw-bold" id="cart-total"></h3>
+            </div>
+        </div> 
     </div> <!-- .container -->
     
     <footer class="bg-dark text-white text-center py-3 mt-5">
