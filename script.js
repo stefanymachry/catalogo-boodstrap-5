@@ -41,6 +41,9 @@ const CATALOG_ITEMS = [
     }
 ];
 
+// Helper para formatar moedas em reais
+const formatCurrency = (value) => value.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
 /**
 * Adiciona listeners aos botoes "Ver detalhes" para popular o modal dinamicamente 
 */
@@ -244,10 +247,20 @@ carrinho_btn.addEventListener("click", function() {
 
     const itensCarrinho = obterCarrinhoDoNavegador(); // Le os cookies do navegador
     // Para cada itens do carrinho
-    itensCarrinho.forEach(itemCarrinho => {
+    itensCarrinho.forEach(itemId => {
+        // O cookie retorna apenas o ID  do item no carrinho,
+        // Precissamos puxar suas informaçoes do vetor de acatalogo
+        const item = CATALOG_ITEMS.find(i => i.id === itemId);
+        
         // Adiciona o item do carrinho ao recibo
         const li = document.createElement("li");
-        li.innerHTML = itemCarrinho;
+        li.classList.add("list-group-item", "d-flex", "justify-content-between", "aling-items-center");
+        li.innerHTML = `
+        <div>
+        <h6 class="mb-1">${item.titulo}</h6>
+        </div>
+        <span class="fw-bold text-success">${formatCurrency(item.preco)}</span> 
+        `;
 
         carrinho_recibo.appendChild(li);
     });
